@@ -80,6 +80,7 @@ class Seafile
     if res and res.code == 201 and res.headers['location']
       return res.headers['location']
     elsif res.code == 403
+    elsif res.code == 403 or res.code == 401
       logger.debug res.inspect
       raise AuthError, 'Invalid credentials in create_link.'
     else
@@ -95,6 +96,7 @@ class Seafile
     if res and res.parsed_response.is_a? Array
       return res.parsed_response
     elsif res.code == 403
+    elsif res.code == 403 or res.code == 401
       logger.debug res.inspect
       raise AuthError, 'Invalid credentials in repos.'
     else
